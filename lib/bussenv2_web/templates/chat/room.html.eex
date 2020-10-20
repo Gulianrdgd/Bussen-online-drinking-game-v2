@@ -1,0 +1,24 @@
+<script>
+  if("<%= @token %>" === "" || "<%= @username%>" === ""){
+    window.location = "/"
+} else {
+    window.userToken = "<%= @token %>";
+    window.username = "<%= @username%>";
+  }
+</script>
+<script>window.username="<%= @username%>";</script>
+<script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+<div class="is-flex" style="min-height: 100vh; flex-direction: column;">
+  <div class="container" style="margin-top: 10%; margin-bottom: -10%">
+    <h1 class="title has-text-white">Welcome "<%= @username %>" to room <%= @roomCode %>!</h1>
+    <h5 class="has-text-white title is-5" id="presence-counter">There are currently x players in this room</h5>
+  </div>
+<footer class="footer">
+  <div class="content has-text-centered">
+    <p>
+      <strong>Bussen - the online drinking game</strong> by <a href="https://vdhorst.dev">Julian van der Horst</a>
+      You can watch the source code on <a href=https://github.com/Gulianrdgd/Bussen-online-drinking-game-v2> my github</a>
+    </p>
+  </div>
+</footer>
+</div>

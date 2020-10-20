@@ -1,38 +1,47 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>Peace of mind from prototype to production</p>
-</section>
+<div class="is-flex" style="min-height: 100vh; flex-direction: column;">
+<div class="container" style="margin-top: 10%; margin-bottom: -10%">
+  <h1 class="title has-text-white">Welcome to online Bussen!</h1>
+  <h5 class="has-text-white title is-5">Please enter your username and room code</h5>
+</div>
+<div class="container" style="width: 100%">
+  <div class="columns is-vcentered">
+    <div class="column is-one-fifth is-flex is-horizontal-center">
+      <figure class="image is-128x128 is-hidden-mobile">
+        <img src="<%= Routes.static_path(@conn, "/images/thalia.png") %>"/>
+      </figure>
+    </div>
+    <div class="column"></div>
+    <div class="column is-two-fifths">
+      <form action="/" method="post">
+        <input type="hidden" name="_csrf_token" value="<%= get_csrf_token() %>">
+        <label class="label has-text-white is-centered" style="margin-left: 40%">Username</label>
+        <div class="control has-icons-left is-centered">
+          <label for="username"></label><input class="input is-rounded" type="text" name="username" placeholder="Username">
+        </div>
+        <label class="label has-text-white" style="margin-top: 5px; margin-left: 40%">Room code</label>
+        <div class="control has-icons-left">
+          <label for="roomcode"></label><input id="roomcode" class="input is-rounded" name="roomCode" type="text" placeholder="Room code">
+        </div>
+        <div class="control" style="margin-top: 5%; margin-left: 40%">
+          <input type="submit" class="button is-link is-centered has-background-white has-text-black">
+        </div>
+      </form>
+    </div>
 
-<section class="row">
-  <article class="column">
-    <h2>Resources</h2>
-    <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.5/CHANGELOG.md">v1.5 Changelog</a>
-      </li>
-    </ul>
-  </article>
-  <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-      <li>
-        <a href="https://elixir-slackin.herokuapp.com/">Elixir on Slack</a>
-      </li>
-    </ul>
-  </article>
-</section>
+    <div class="column"></div>
+    <div class="column is-one-fifth is-flex is-horizontal-center">
+      <figure class="image is-128x128">
+        <img src="<%= Routes.static_path(@conn, "/images/thalia.png") %>"/>
+      </figure>
+    </div>
+  </div>
+</div>
+<footer class="footer">
+  <div class="content has-text-centered">
+    <p>
+      <strong>Bussen - the online drinking game</strong> by <a href="https://vdhorst.dev">Julian van der Horst</a>
+      You can watch the source code on <a href=https://github.com/Gulianrdgd/Bussen-online-drinking-game-v2> my github</a>
+    </p>
+  </div>
+</footer>
+</div>

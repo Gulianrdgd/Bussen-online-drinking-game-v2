@@ -10,6 +10,10 @@ import "../css/app.scss"
 // Import deps with the dep name or local files with a relative path, for example:
 //
 //     import {Socket} from "phoenix"
-//     import socket from "./socket"
 //
+
+import socket from "./socket"
+import Chat from "./chat"
+console.log("joe");
+Chat.init(socket);
 import "phoenix_html"

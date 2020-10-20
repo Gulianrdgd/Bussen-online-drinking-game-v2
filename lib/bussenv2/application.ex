@@ -14,9 +14,10 @@ defmodule Bussenv2.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Bussenv2.PubSub},
       # Start the Endpoint (http/https)
-      Bussenv2Web.Endpoint
+      Bussenv2Web.Endpoint,
       # Start a worker by calling: Bussenv2.Worker.start_link(arg)
       # {Bussenv2.Worker, arg}
+      Bussenv2Web.Presence
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

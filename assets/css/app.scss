@@ -1,5 +1,6 @@
 /* This file is for your main application css. */
-@import "./phoenix.css";
+
+$footer-padding: 1rem 1.5rem 1rem;
 
 /* Alerts and form errors */
 .alert {
@@ -34,3 +35,29 @@
   display: block;
   margin: -1rem 0 2rem;
 }
+
+.is-horizontal-center {
+  justify-content: center;
+}
+
+.is-vertical-center {
+  display: flex;
+  align-items: center;
+}
+
+$purple: #8A4D76;
+$pink: #FA7C91;
+$brown: #757763;
+$beige-light: #D0D1CD;
+$beige-lighter: #EFF0EB;
+
+// Update Bulma's global variables
+$family-sans-serif: "Nunito", sans-serif;
+$grey-dark: $brown;
+$grey-light: $beige-light;
+$primary: $purple;
+$link: $pink;
+$widescreen-enabled: true;
+$fullhd-enabled: true;
+
+@import "../node_modules/bulma/bulma.sass";

@@ -17,6 +17,8 @@ defmodule Bussenv2Web.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    post "/", PageController, :input_gotten
+    resources "/room", ChatController, only: [:show]
   end
 
   # Other scopes may use custom stacks.
