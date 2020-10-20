@@ -17,10 +17,8 @@ defmodule Bussenv2Web.UserSocket do
   def connect(params, socket, _connect_info) do
     cond do
       params["username"] == "" ->
-      Logger.error("no username!")
         {:error, %{reason: "No username provided."}, socket}
       true ->
-        Logger.info("als je hierboven een error ziet gaat het mis")
         {:ok, assign(socket, :user_id, params["username"])}
     end
   end

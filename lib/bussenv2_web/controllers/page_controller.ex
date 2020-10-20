@@ -5,7 +5,7 @@ defmodule Bussenv2Web.PageController do
 
   def index(conn, _params) do
     changeset = changeset(%Users{})
-    render(conn, "index.html", changeset: changeset, roomCode: "undefined", token: get_csrf_token(), joining: false)
+    render(conn, "index.html", changeset: changeset, roomCode: "undefined", joining: false)
   end
 
   def input_gotten(conn, _params) do
@@ -17,7 +17,7 @@ defmodule Bussenv2Web.PageController do
     conn
       |> put_session(:token, token)
       |> put_session(:username, username)
-      |> render("index.html", changeset: changeset, username: username, token: token, roomCode: roomcode, joining: true)
+      |> render("index.html", changeset: changeset, username: username, roomCode: roomcode, joining: true)
   end
 
   def parse(conn, opts \\ []) do

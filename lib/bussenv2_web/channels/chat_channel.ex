@@ -1,6 +1,6 @@
 defmodule Bussenv2Web.ChatChannel do
   use Bussenv2Web, :channel
-
+  require Logger
   alias Bussenv2.Chats
   alias Bussenv2Web.Presence
 
@@ -10,6 +10,8 @@ defmodule Bussenv2Web.ChatChannel do
   end
 
   def handle_in("shout", payload, socket) do
+#    payload {"body" => "message", "name" => "username"}
+#    topic is vissible in socket
     "chat:" <> room = socket.topic
     payload = Map.merge(payload, %{"room" => room})
     Chats.create_message(payload)

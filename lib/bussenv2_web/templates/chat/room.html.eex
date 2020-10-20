@@ -1,24 +1,101 @@
-<script>
-  if("<%= @token %>" === "" || "<%= @username%>" === ""){
+<script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+<script>if("<%= @token %>" === "" || "<%= @username%>" === ""){
     window.location = "/"
 } else {
     window.userToken = "<%= @token %>";
     window.username = "<%= @username%>";
-  }
-</script>
-<script>window.username="<%= @username%>";</script>
-<script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-<div class="is-flex" style="min-height: 100vh; flex-direction: column;">
-  <div class="container" style="margin-top: 10%; margin-bottom: -10%">
-    <h1 class="title has-text-white">Welcome "<%= @username %>" to room <%= @roomCode %>!</h1>
-    <h5 class="has-text-white title is-5" id="presence-counter">There are currently x players in this room</h5>
+}</script>
+
+<!-- top wrapper -->
+<div class="is-flex is-vcentered" style="min-height: 100vh; flex-direction: column;">
+
+  <!-- welcome message and start button -->
+  <div class="container" style="margin-top: 3rem">
+    <h1 class="title has-text-white" style="text-align: center">welcome "<%= @username %>" to room "<%= @roomCode %>"!</h1>
+    <h5 class="has-text-white title is-5" id="presence-counter" style="text-align: center;">there are currently x players in this room</h5>
+    <div class="control" style="text-align: center">
+      <button type="submit" id="room-start" class="button has-text-black">everyone is in!</button>
+    </div>
   </div>
-<footer class="footer">
-  <div class="content has-text-centered">
-    <p>
-      <strong>Bussen - the online drinking game</strong> by <a href="https://vdhorst.dev">Julian van der Horst</a>
-      You can watch the source code on <a href=https://github.com/Gulianrdgd/Bussen-online-drinking-game-v2> my github</a>
-    </p>
+
+  <!-- question box -->
+  <div class="box" id="questions" style="display: none">
+
+    <article class="message is-large">
+
+      <div class="message-header has-background-primary is-vcentered">
+        <p class="is-flex" style="text-align: center; margin: auto" id="text-question">large message</p>
+      </div>
+
+      <div class="message-body">
+        <p class="is-text" style="text-align: center; margin-bottom: 3rem">large question</p>
+        <div class="columns is-mobile">
+
+          <div class="column is-flex is-vcentered" style="  flex-direction: column">
+            <p class="is-text" style="text-align: center"> a </p>
+            <div class="is-vcentered is-flex">
+              <label style="margin: auto">
+                <input type="radio" name="rsvp">
+              </label><br>
+            </div>
+          </div>
+
+          <div class="column is-flex is-vcentered" style="  flex-direction: column">
+            <p class="is-text" style="text-align: center"> b </p>
+            <div class="is-vcentered is-flex">
+              <label style="margin: auto">
+                <input type="radio" name="rsvp">
+              </label><br>
+            </div>
+          </div>
+
+          <div class="column is-flex is-vcentered" style="  flex-direction: column">
+            <p class="is-text" style="text-align: center"> c </p>
+            <div class="is-vcentered is-flex">
+              <label style="margin: auto">
+                <input type="radio" name="rsvp">
+              </label><br>
+            </div>
+          </div>
+
+        </div> <!-- columns -->
+
+        <div class="control" style="text-align: center">
+          <button type="submit" id="room-start" class="submit button is-primary is-medium has-text-white">enter</button>
+        </div>
+
+      </div>
+
+    </article>
+
   </div>
-</footer>
+
+  <!-- cards for the player -->
+  <div class="container" style="margin-bottom: 3rem">
+    <h1 class="title has-text-white" style="text-align: center">your cards</h1>
+    <div class="columns is-mobile">
+      <div class="column is-one-quarter">
+        <img class="playingCard" alt="card-0" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>">
+      </div>
+      <div class="column is-one-quarter">
+        <img class="playingCard" alt="card-1" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>">
+      </div>
+      <div class="column is-one-quarter">
+        <img class="playingCard" alt="card-2" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>">
+      </div>
+      <div class="column is-one-quarter">
+        <img class="playingCard" alt="card-3" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>">
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer" id="footer">
+    <div class="content has-text-centered">
+      <p>
+        <strong>Bussen - the online drinking game</strong> by <a href="https://vdhorst.dev">Julian van der Horst</a>
+        You can watch the source code on <a href=https://github.com/Gulianrdgd/Bussen-online-drinking-game-v2> my github</a>
+      </p>
+    </div>
+  </footer>
+
 </div>

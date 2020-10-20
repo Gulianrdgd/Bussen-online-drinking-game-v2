@@ -1,28 +1,28 @@
 <div class="is-flex" style="min-height: 100vh; flex-direction: column;">
 <div class="container" style="margin-top: 10%; margin-bottom: -10%">
-  <h1 class="title has-text-white">Welcome to online Bussen!</h1>
-  <h5 class="has-text-white title is-5">Please enter your username and room code</h5>
+  <h1 class="title has-text-white" style="text-align: center">Welcome to online Bussen!</h1>
+  <h5 class="has-text-white title is-5" style="text-align: center">Please enter your username and room code</h5>
 </div>
 <div class="container" style="width: 100%">
   <div class="columns is-vcentered">
     <div class="column is-one-fifth is-flex is-horizontal-center">
       <figure class="image is-128x128 is-hidden-mobile">
-        <img src="<%= Routes.static_path(@conn, "/images/thalia.png") %>"/>
+        <img src="<%= Routes.static_path(@conn, "/images/thalia.png") %>" alt=""/>
       </figure>
     </div>
     <div class="column"></div>
     <div class="column is-two-fifths">
       <form action="/" method="post">
         <input type="hidden" name="_csrf_token" value="<%= get_csrf_token() %>">
-        <label class="label has-text-white is-centered" style="margin-left: 40%">Username</label>
+        <label class="label has-text-white is-centered" style="text-align: center">Username</label>
         <div class="control has-icons-left is-centered">
           <label for="username"></label><input class="input is-rounded" type="text" name="username" placeholder="Username">
         </div>
-        <label class="label has-text-white" style="margin-top: 5px; margin-left: 40%">Room code</label>
+        <label class="label has-text-white" style="text-align: center;">Room code</label>
         <div class="control has-icons-left">
           <label for="roomcode"></label><input id="roomcode" class="input is-rounded" name="roomCode" type="text" placeholder="Room code">
         </div>
-        <div class="control" style="margin-top: 5%; margin-left: 40%">
+        <div class="control" style="text-align: center; margin-top: 3rem">
           <input type="submit" class="button is-link is-centered has-background-white has-text-black">
         </div>
       </form>
@@ -31,7 +31,7 @@
     <div class="column"></div>
     <div class="column is-one-fifth is-flex is-horizontal-center">
       <figure class="image is-128x128">
-        <img src="<%= Routes.static_path(@conn, "/images/thalia.png") %>"/>
+        <img alt="" src="<%= Routes.static_path(@conn, "/images/thalia.png") %>"/>
       </figure>
     </div>
   </div>
