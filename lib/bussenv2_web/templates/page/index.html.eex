@@ -3,6 +3,42 @@
   <h1 class="title has-text-white" style="text-align: center">Welcome to online Bussen!</h1>
   <h5 class="has-text-white title is-5" style="text-align: center">Please enter your username and room code</h5>
 </div>
+
+<div class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="card">
+      <header class="card-header" style="text-align: center">
+        <p class="card-header-title" style="text-align: center">
+          Warning
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          <h1 class="title has-text-black" style="text-align: center">That username is already taken!</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+<script>
+  const modal = document.querySelector('.modal');  // assuming you have only 1
+  const html = document.querySelector('html');
+
+  if(<%= @taken %>) {
+    modal.classList.add('is-active');
+    html.classList.add('is-clipped');
+
+
+    modal.querySelector('.modal-background').addEventListener('click', function (e) {
+      e.preventDefault();
+      modal.classList.remove('is-active');
+      html.classList.remove('is-clipped');
+    });
+  }
+
+</script>
 <div class="container" style="width: 100%">
   <div class="columns is-vcentered">
     <div class="column is-one-fifth is-flex is-horizontal-center">

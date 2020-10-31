@@ -44,6 +44,7 @@ $footer-padding: 1rem 1.5rem 1rem;
   display: flex;
   align-items: center;
 }
+
 .submit{
   width: 10rem;
   height: 2rem;
@@ -59,6 +60,17 @@ $footer-padding: 1rem 1.5rem 1rem;
   backface-visibility: hidden;
   -moz-border-radius: 10px;
   border-radius: 10px;
+}
+.rows{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
+.pyramidCard{
+  max-width: 15vw;
+  margin-top: 1rem;
 }
 
 $purple: #8A4D76;

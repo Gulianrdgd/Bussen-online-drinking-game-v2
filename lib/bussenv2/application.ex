@@ -4,10 +4,12 @@ defmodule Bussenv2.Application do
   @moduledoc false
 
   use Application
+  use Supervisor
 
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
+
       Bussenv2.Repo,
       # Start the Telemetry supervisor
       Bussenv2Web.Telemetry,
@@ -17,7 +19,8 @@ defmodule Bussenv2.Application do
       Bussenv2Web.Endpoint,
       # Start a worker by calling: Bussenv2.Worker.start_link(arg)
       # {Bussenv2.Worker, arg}
-      Bussenv2Web.Presence
+      Bussenv2Web.Presence,
+      worker(Bussenv2.ChannelWatcher, [:chat])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
