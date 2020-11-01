@@ -111,10 +111,17 @@ defmodule Bussenv2Web.ChatChannel do
             {:noreply, socket}
         "?roomDone" ->
           "chat:" <> room = socket.topic
+
           roomIsStilAlive = Room |> Ecto.Query.where(roomCode: ^room) |> Repo.exists?
           if(roomIsStilAlive) do
             _query = Room |> Ecto.Query.where(roomCode: ^room) |> Repo.delete_all
           end
+
+          usersAreStillAlive = User |> Ecto.Query.where(roomCode: ^room) |> Repo.exists?
+          if(usersAreStillAlive) do
+            _query = User |> Ecto.Query.where(roomCode: ^room) |> Repo.delete_all
+          end
+
           {:noreply, socket}
         _ ->
           "chat:" <> room = socket.topic
