@@ -23,7 +23,7 @@ module.exports = (env, options) => {
       'round1': glob.sync('./vendor/**/*.js').concat(['./js/round1.js']),
       'round2': glob.sync('./vendor/**/*.js').concat(['./js/round2.js']),
       'round3': glob.sync('./vendor/**/*.js').concat(['./js/round3.js']),
-      'socket': glob.sync('./vendor/**/*.js').concat(['./js/socket.js']),
+      'socket': glob.sync('./vendor/**/*.js').concat(['./js/round3.js']),
     },
     output: {
       filename: '[name].js',
