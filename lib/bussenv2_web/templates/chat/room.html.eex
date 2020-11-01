@@ -7,6 +7,7 @@
     window.isHost = <%= @isHost %>;
 }</script>
 <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+<script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -26,12 +27,11 @@
   <div class="box" id="questions" style="display: none">
 
     <article class="message is-large">
-
       <div class="message-header has-background-primary is-vcentered">
         <p class="is-flex" style="text-align: center; margin: auto" id="turn">large message</p>
       </div>
       <div>
-      <div class="message-body" id="questionsBody">
+      <div class="message-body" id="questionsBody" style="border-width: 0">
         <p class="is-text" style="text-align: center; margin-bottom: 3rem" id="q">You still have time to grab a drink</p>
       <div id="answerBody">
         <div class="columns is-mobile" id="radios">
@@ -78,70 +78,85 @@
   <div class="container" id="round2" style="display: none">
     <div class="rows is-mobile">
       <div class="row">
-        <div class="columns is-mobile">
+        <div class="columns is-mobile" style="margin-top: 1rem">
           <div class="column">
             <img class="playingCard pyramidCard" id="c0-0" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+            <ul class="placedCards" id='cl0-0'></ul>
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="columns is-mobile">
+        <div class="columns is-mobile" style="margin-top: 1rem">
           <div class="column is-half">
             <img class="playingCard pyramidCard" id="c1-0" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+            <ul class="placedCards" id='cl1-0'></ul>
           </div>
           <div class="column is-half">
             <img class="playingCard pyramidCard" id="c1-1" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+            <ul class="placedCards" id='cl1-1'></ul>
           </div>
         </div>
       </div>
 
       <div class="row">
-        <div class="columns is-mobile">
+        <div class="columns is-mobile" style="margin-top: 1rem">
           <div class="column is-one-third">
             <img class="playingCard pyramidCard" id="c2-0" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+            <ul class="placedCards" id='cl2-0'></ul>
           </div>
           <div class="column is-one-third">
             <img class="playingCard pyramidCard" id="c2-1" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+            <ul class="placedCards" id='cl2-1'></ul>
           </div>
           <div class="column is-one-third">
             <img class="playingCard pyramidCard" id="c2-2" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+            <ul class="placedCards" id='cl2-2'></ul>
           </div>
         </div>
       </div>
 
       <div class="row">
-        <div class="columns is-mobile is-centered is-flex">
+        <div class="columns is-mobile is-centered is-flex" style="margin-top: 1rem">
           <div class="column is-one-quarter" >
             <img class="playingCard pyramidCard" id="c3-0" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+            <ul class="placedCards" id='cl3-0'></ul>
           </div>
           <div class="column is-one-quarter">
             <img class="playingCard pyramidCard" id="c3-1" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+            <ul class="placedCards" id='cl3-1'></ul>
           </div>
           <div class="column is-one-quarter">
             <img class="playingCard pyramidCard" id="c3-2" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+            <ul class="placedCards" id='cl3-2'></ul>
           </div>
           <div class="column is-one-quarter">
             <img class="playingCard pyramidCard" id="c3-3" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+            <ul class="placedCards" id='cl3-3'></ul>
           </div>
         </div>
       </div>
 
       <div class="row">
-        <div class="columns is-mobile is-centered is-flex">
+        <div class="columns is-mobile is-centered is-flex" style="margin-top: 1rem">
           <div class="column">
             <img class="playingCard pyramidCard" id="c4-0" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+            <ul class="placedCards" id='cl4-0'></ul>
           </div>
           <div class="column">
             <img class="playingCard pyramidCard" id="c4-1" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+            <ul class="placedCards" id='cl4-1'></ul>
           </div>
           <div class="column">
             <img class="playingCard pyramidCard" id="c4-2" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+            <ul class="placedCards" id='cl4-2'></ul>
           </div>
           <div class="column">
             <img class="playingCard pyramidCard" id="c4-3" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+            <ul class="placedCards" id='cl4-3'></ul>
           </div>
           <div class="column">
             <img class="playingCard pyramidCard" id="c4-4" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+            <ul class="placedCards" id='cl4-4'></ul>
           </div>
         </div>
       </div>
@@ -149,8 +164,93 @@
     </div>
   </div>
 
+  <!-- Bus message -->
+  <div class="container" id="round3Message" style="display: none">
+    <div class="box">
+      <article class="message is-large">
+        <div class="message-header has-background-primary is-vcentered">
+          <p class="is-flex" style="text-align: center; margin: auto" id="busMessage">large message</p>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- round 3 the bus -->
+  <div class="container" id="round3" style="display: none">
+    <div class="columns is-mobile is-centered is-flex" style="margin-left: 1rem; margin-right: 1rem;">
+
+      <div class="column">
+        <div id="busu0" class="triangle-up"></div>
+        <img class="playingCard" id="b0" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+        <ul class="placedCards">
+          <li>
+            <button class='button has-background-black has-text-white' id="busb0" style='visibility: hidden'>Paal</button>
+          </li>
+        </ul>
+        <div id="busd0" class="triangle-down"></div>
+      </div>
+
+      <div class="column">
+        <div id="busu1" class="triangle-up"></div>
+        <img class="playingCard" id="b1" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+        <ul class="placedCards">
+          <li>
+            <button class='button has-background-black has-text-white' id="busb1" style='visibility: hidden'>Paal</button>
+          </li>
+        </ul>
+        <div id="busd1" class="triangle-down"></div>
+      </div>
+
+      <div class="column">
+        <div id="busu2" class="triangle-up"></div>
+        <img class="playingCard" id="b2" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+        <ul class="placedCards">
+          <li>
+            <button class='button has-background-black has-text-white' id="busb2" style='visibility: hidden'>Paal</button>
+          </li>
+        </ul>
+        <div id="busd2" class="triangle-down"></div>
+      </div>
+
+      <div class="column">
+        <div id="busu3" class="triangle-up"></div>
+        <img class="playingCard" id="b3" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+        <ul class="placedCards">
+          <li>
+            <button class='button has-background-black has-text-white' id="busb3" style='visibility: hidden'>Paal</button>
+          </li>
+        </ul>
+        <div id="busd3" class="triangle-down"></div>
+      </div>
+
+      <div class="column">
+        <div id="busu4" class="triangle-up"></div>
+        <img class="playingCard" id="b4" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+        <ul class="placedCards">
+          <li>
+            <button class='button has-background-black has-text-white' id="busb4" style='visibility: hidden'>Paal</button>
+          </li>
+        </ul>
+        <div id="busd4" class="triangle-down"></div>
+      </div>
+
+      <div class="column">
+        <div id="busu5" class="triangle-up"></div>
+        <img class="playingCard" id="b5" src="<%= Routes.static_path(@conn, "/images/cards/back.jpg") %>" alt="">
+        <ul class="placedCards">
+          <li>
+            <button class='button has-background-black has-text-white' id="busb5" style='visibility: hidden'>Paal</button>
+          </li>
+        </ul>
+        <div id="busd5" class="triangle-down"></div>
+      </div>
+
+    </div>
+  </div>
+
+
   <!-- cards for the player -->
-  <div class="container" style="margin-bottom: 3rem">
+  <div class="container" style="margin-bottom: 3rem" id="playerCards">
     <h1 class="title has-text-white" style="text-align: center">your cards</h1>
     <div class="columns is-mobile">
       <div class="column is-one-quarter">

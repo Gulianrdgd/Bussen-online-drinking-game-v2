@@ -16,8 +16,4 @@ defmodule Bussenv2Web.CardsController do
   def show(conn,  %{"cards_id" => room, "id" => "removeDeck"}) do
     json(conn, Cards.removeDeck(room))
   end
-
-  def edit(conn,  %{"cards_id" => room, "id" => username}) do
-    json(conn, Cards.placeCard(room, username))
-  end
 end

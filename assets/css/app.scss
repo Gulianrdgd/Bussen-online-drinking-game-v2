@@ -2,6 +2,18 @@
 
 $footer-padding: 1rem 1.5rem 1rem;
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+.example::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.example {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+
 /* Alerts and form errors */
 .alert {
   padding: 15px;
@@ -60,6 +72,7 @@ $footer-padding: 1rem 1.5rem 1rem;
   backface-visibility: hidden;
   -moz-border-radius: 10px;
   border-radius: 10px;
+
 }
 .rows{
   display: flex;
@@ -70,11 +83,67 @@ $footer-padding: 1rem 1.5rem 1rem;
 
 .pyramidCard{
   max-width: 15vw;
-  margin-top: 1rem;
+}
+
+.placedCards{
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-40%, -50%);
+  -ms-transform: translate(-40%, -50%);
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+}
+
+.placedCards:hover{
+  opacity: 1;
+}
+
+.image:hover {
+  opacity: 0.3;
+}
+
+.image:hover + ul {
+  opacity: 1;
+}
+
+.placedCards button{
+  width: 80%;
+}
+
+.triangle-up {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 25px solid #ffffff;
+  margin: auto auto 10%;
+  visibility: hidden;
+}
+.triangle-up:hover{
+  opacity: 0.3;
+  transition: 0.5s;
+}
+
+.triangle-down {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 25px solid #ffffff;
+  vertical-align: middle;
+  margin: 10% auto auto;
+  visibility: hidden;
+}
+
+.triangle-down:hover{
+  opacity: 0.3;
+  transition: 0.5s;
 }
 
 $purple: #8A4D76;
-$pink: #FA7C91;
+$pink: #e62272;
 $brown: #757763;
 $beige-light: #D0D1CD;
 $beige-lighter: #EFF0EB;
@@ -89,3 +158,13 @@ $widescreen-enabled: true;
 $fullhd-enabled: true;
 
 @import "../node_modules/bulma/bulma.sass";
+
+@media screen and (min-width: 768px) {
+
+  .columns {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 2rem;
+  }
+
+}

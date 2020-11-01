@@ -3,6 +3,7 @@ defmodule Bussenv2.Cards do
   import Ecto.Changeset
   alias Bussenv2.{Repo, Cards, User}
   require Ecto.Query
+  require Logger
 
   schema "cards" do
     field :name, :string
@@ -33,9 +34,6 @@ defmodule Bussenv2.Cards do
   def removeDeck(roomCode) do
       Cards |> Ecto.Query.where(roomCode: ^roomCode) |> Repo.delete_all
       _result = "done"
-  end
-
-  def placeCard(roomCode, username) do
   end
 
   def getCard(roomCode) do

@@ -20,7 +20,7 @@ defmodule Bussenv2Web.PageController do
         Logger.error("Eerste keer")
         token = Phoenix.Token.sign(Bussenv2Web.Endpoint, "user auth", username)
         userSet = %User{}
-        changeset = User.changeset(userSet, %{username: username, roomCode: roomCode, origCards: ["back.jpg","back.jpg","back.jpg","back.jpg"], currCards: ["back.jpg","back.jpg","back.jpg","back.jpg"]})
+        changeset = User.changeset(userSet, %{username: username, roomCode: roomCode, origCards: ["back.jpg","back.jpg","back.jpg","back.jpg"], currCards: ["back.jpg","back.jpg","back.jpg","back.jpg"], liedOn: [false, false, false, false]})
         Repo.insert(changeset)
         conn
         |> put_session(:token, token)

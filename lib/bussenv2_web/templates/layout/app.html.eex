@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="background: #e62272">
+<html lang="en" style="background: #e62272;">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -11,8 +11,8 @@
     <% end %>
     <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
 </head>
-<body>
-<main role="main" class="container">
+<body class="example">
+<main role="main" class="container" style="">
     <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
     <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
     <%= @inner_content %>

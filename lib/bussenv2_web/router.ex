@@ -10,7 +10,10 @@ defmodule Bussenv2Web.Router do
   end
 
   pipeline :internal do
-    plug CORSPlug, origin: "hotmail.com"
+    plug CORSPlug, origins: [
+                     "bussenv2.vdhorst.dev",
+                      "127.0.0.1:4000"
+    ]
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
@@ -39,7 +42,11 @@ defmodule Bussenv2Web.Router do
      pipe_through :api
 
      resources "/", CardsController do
-       resources "/action", CardsController, only: [:show, :edit]
+       resources "/cards", CardsController, only: [:show]
+     end
+
+     resources "/", UserController do
+       resources "/users", UserController, only: [:show, :edit]
      end
    end
 

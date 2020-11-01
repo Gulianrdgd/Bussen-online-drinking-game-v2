@@ -5,8 +5,6 @@ export function checkAnswer(card, round, answer, cards) {
     if(card !== "empty"){
         switch (round) {
             case 0:
-                console.log(card);
-                console.log(answer)
                 switch (card.charAt(0)) {
                     case "h":
                         return answer !== "a";
@@ -70,10 +68,28 @@ export function checkAnswer(card, round, answer, cards) {
     }
 }
 
-function getNumber(card) {
+export function getNumber(card) {
     if (card.length === 3) {
         return parseInt(card.substring(1));
     } else {
         return parseInt(card.charAt(1));
+    }
+}
+
+export function checkBus(flippedCard, previousCard, guess, channel){
+    console.log(flippedCard);
+    console.log(previousCard);
+    if(flippedCard !== "empty"){
+        switch (guess){
+            case "up":
+                return(getNumber(flippedCard) > getNumber(previousCard))
+            case "down":
+                return(getNumber(flippedCard) < getNumber(previousCard))
+            case "paal":
+                return(getNumber(flippedCard) === getNumber(previousCard))
+        }
+    }else{
+        channel.push('shout', {name: username,  body: "?done", correct: true, empty: true})
+        return false;
     }
 }
