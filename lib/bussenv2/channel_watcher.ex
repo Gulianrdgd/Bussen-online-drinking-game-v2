@@ -4,7 +4,6 @@ defmodule Bussenv2.ChannelWatcher do
   ## Client API
 
   def monitor(server_name, pid, mfa) do
-    Logger.error("HELLOOOO")
     GenServer.call(server_name, {:monitor, pid, mfa})
   end
 

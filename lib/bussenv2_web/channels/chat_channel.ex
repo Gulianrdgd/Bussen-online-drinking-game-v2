@@ -26,7 +26,6 @@ defmodule Bussenv2Web.ChatChannel do
   end
 
   def leave(room_id, user_id) do
-    Logger.info("Leaving")
 
     res = Room |> Ecto.Query.where(roomCode: ^room_id) |> Repo.exists?
     if res do
@@ -100,13 +99,11 @@ defmodule Bussenv2Web.ChatChannel do
 
             areLeftovers = User |> Ecto.Query.where([x], x.roomCode == ^room and x.username != ^payload["name"]) |> Repo.exists?
             if(areLeftovers) do
-              Logger.info("There are!")
               User |> Ecto.Query.where([x], x.roomCode == ^room and x.username != ^payload["name"]) |> Repo.delete_all
             end
 
             roomHostGhosts = Room |> Ecto.Query.where([x], x.roomCode == ^room and x.host != ^payload["name"]) |> Repo.exists?
             if(roomHostGhosts) do
-              Logger.info("There are!")
               query = Room |> Ecto.Query.where(roomCode: ^room) |> Repo.one
               Room.changeset(query, %{roomCode: query.roomCode, round: query.round, isPlaying: query.isPlaying, host: payload["name"]}) |> Repo.update
             end
