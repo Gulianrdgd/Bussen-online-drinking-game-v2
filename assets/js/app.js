@@ -66,6 +66,9 @@ channel.on('shout', payload => {
         case "?round2":
             startRound2();
             break;
+        case "?round3Reset":
+            document.getElementById("b0").src = "/images/cards/"+ payload.card +".jpg";
+            break;
         case "?round2Finished":
             if(isHost){
                 clearInterval(interval);
@@ -93,7 +96,11 @@ channel.on('shout', payload => {
             break;
         case "?round3guess":
             round3Card = selectCard(round3Card, payload.correct, payload.card);
-            console.log(round3Card);
+            if(round3Card === 1){
+                fetchApiCards("getCard").then(data => {
+                    channel.push('shout', {name: username, body: "?round3Reset", card: data});
+                })
+            }
             if(round3Card<0 && payload.name === username){
                 channel.push('shout', {name: username, body: "?done", empty: false});
             }
@@ -179,7 +186,7 @@ function startTheGame(){
 
 function recievedCard(card, answer){
     cards[round] = card;
-    document.getElementById("c"+(round)).src = "/images/cards/"+ card +".jpg"
+    document.getElementById("c"+(round)).src = "/images/cards/"+ card +".jpg";
     if(checkAnswer(card, round, answer, cards)){
         document.getElementById("q").innerText = "Correct!";
         channel.push('shout', {name: username,  body: "?response", correct: true})
