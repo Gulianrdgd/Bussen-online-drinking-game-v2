@@ -117,6 +117,7 @@ channel.on('shout', payload => {
                 clearInterval(interval);
                 interval = setInterval(sendRound2, waitTime);
             }
+            toastr.warning(payload.name + " placed a Card!");
             break;
         case "?round3":
             startRound3(payload.card);
