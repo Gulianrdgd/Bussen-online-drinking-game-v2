@@ -19,10 +19,9 @@ defmodule Bussenv2Web.ChatChannel do
 
     res = Room |> Ecto.Query.where(roomCode: ^room) |> Repo.exists?
     if !res do
-      changeset = User.changeset(%Room{}, %{roomCode: room, round: 0 , isPlaying: false, host: uid})
+      changeset = Room.changeset(%Room{}, %{roomCode: room, round: 0 , isPlaying: false, host: uid})
       Repo.insert(changeset)
     end
-
     {:ok, socket}
   end
 
@@ -113,11 +112,11 @@ defmodule Bussenv2Web.ChatChannel do
             end
 
             {:noreply, socket}
-        "?cleanLobby" ->
+        "?roomDone" ->
           "chat:" <> room = socket.topic
           roomIsStilAlive = Room |> Ecto.Query.where(roomCode: ^room) |> Repo.exists?
           if(roomIsStilAlive) do
-            query = Room |> Ecto.Query.where(roomCode: ^room) |> Repo.delete_all
+            _query = Room |> Ecto.Query.where(roomCode: ^room) |> Repo.delete_all
           end
           {:noreply, socket}
         _ ->

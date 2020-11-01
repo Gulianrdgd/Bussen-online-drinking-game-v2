@@ -13,7 +13,6 @@ $footer-padding: 1rem 1.5rem 1rem;
   scrollbar-width: none;  /* Firefox */
 }
 
-
 /* Alerts and form errors */
 .alert {
   padding: 15px;
@@ -167,4 +166,8 @@ $fullhd-enabled: true;
     margin-top: 2rem;
   }
 
+}
+
+.column{
+  position: relative;
 }

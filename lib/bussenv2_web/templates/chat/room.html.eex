@@ -164,17 +164,6 @@
     </div>
   </div>
 
-  <!-- Bus message -->
-  <div class="container" id="round3Message" style="display: none">
-    <div class="box">
-      <article class="message is-large">
-        <div class="message-header has-background-primary is-vcentered">
-          <p class="is-flex" style="text-align: center; margin: auto" id="busMessage">large message</p>
-        </div>
-      </article>
-    </div>
-  </div>
-
   <!-- round 3 the bus -->
   <div class="container" id="round3" style="display: none">
     <div class="columns is-mobile is-centered is-flex" style="margin-left: 1rem; margin-right: 1rem;">
@@ -244,13 +233,22 @@
         </ul>
         <div id="busd5" class="triangle-down"></div>
       </div>
-
     </div>
   </div>
 
+  <!-- Bus message -->
+  <div class="container" id="round3Message" style="display: none">
+    <div class="box">
+      <article class="message is-large">
+        <div class="message-header has-background-primary is-vcentered">
+          <p class="is-flex" style="text-align: center; margin: auto" id="busMessage">large message</p>
+        </div>
+      </article>
+    </div>
+  </div>
 
   <!-- cards for the player -->
-  <div class="container" style="margin-bottom: 3rem" id="playerCards">
+  <div class="container" style="margin-bottom: 3rem; margin-top: 3rem;" id="playerCards">
     <h1 class="title has-text-white" style="text-align: center">your cards</h1>
     <div class="columns is-mobile">
       <div class="column is-one-quarter">
