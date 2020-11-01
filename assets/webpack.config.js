@@ -17,7 +17,13 @@ module.exports = (env, options) => {
       ]
     },
     entry: {
-      'app': glob.sync('./vendor/**/*.js').concat(['./js/app.js'])
+      'app': glob.sync('./vendor/**/*.js').concat(['./js/app.js']),
+      'checkAnswer': glob.sync('./vendor/**/*.js').concat(['./js/checkAnswer.js']),
+      'notification': glob.sync('./vendor/**/*.js').concat(['./js/notification.js']),
+      'round1': glob.sync('./vendor/**/*.js').concat(['./js/round1.js']),
+      'round2': glob.sync('./vendor/**/*.js').concat(['./js/round2.js']),
+      'round3': glob.sync('./vendor/**/*.js').concat(['./js/round3.js']),
+      'socket': glob.sync('./vendor/**/*.js').concat(['./js/socket.js']),
     },
     output: {
       filename: '[name].js',
@@ -42,6 +48,15 @@ module.exports = (env, options) => {
             'css-loader',
             'sass-loader',
           ],
+        },
+        {
+          test: /\.(jpg|png|gif)$/,
+          loader: "file-loader",
+          options: {
+            name: "[name].[ext]",
+            outputPath: "../static/images/",
+            publicPath: "../images/"
+          }
         }
       ]
     },
