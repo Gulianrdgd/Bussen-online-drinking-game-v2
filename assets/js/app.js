@@ -98,7 +98,11 @@ channel.on('shout', payload => {
             round3Card = selectCard(round3Card, payload.correct, payload.card);
             if(round3Card === 1){
                 fetchApiCards("getCard").then(data => {
-                    channel.push('shout', {name: username, body: "?round3Reset", card: data});
+                    if(data === "empty"){
+                        channel.push('shout', {name: username, body: "?done", empty: true});
+                    } else {
+                        channel.push('shout', {name: username, body: "?round3Reset", card: data});
+                    }
                 })
             }
             if(round3Card<0 && payload.name === username){
