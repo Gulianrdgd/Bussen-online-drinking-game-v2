@@ -45,7 +45,6 @@ presence.onSync(() => renderOnlineUsers(presence))
 channel.join();
 
 channel.on('shout', payload => {
-    console.log(payload);
     switch (payload.body){
         case "?start":
             if(payload.name !== username) {
@@ -84,7 +83,6 @@ channel.on('shout', payload => {
                 clearInterval(interval);
                 interval = setInterval(function (){
                     fetchApiCards("getCard").then(data => {
-                        console.log(data);
                         channel.push('shout', {name: payload.name, body: "?round3", card: data});
                         clearInterval(interval)
                         })
@@ -208,11 +206,15 @@ function recievedCard(card, answer){
 
 function nextUser(){
     let index = users.indexOf(username);
+    console.log(index);
+    console.log(users);
     if(index !== users.length-1){
         index++;
     }else{
         index = 0;
     }
+    console.log(index);
+    console.log(users[index]);
     channel.push('shout', {name: users[index],  body: "?next"})
 }
 
@@ -238,11 +240,9 @@ function startRound2(){
 }
 
 function cardOnClick(k) {
-    console.log(cards[k]);
     if(cards[k]!=="back.jpg" && getCurrPos()[1] !== 5) {
         let bottomCard = /[^/]*$/.exec(document.getElementById("c" + getCurrPos()[0] + "-" + getCurrPos()[1]).src)[0]
         bottomCard = bottomCard.slice(0,bottomCard.length-4);
-        console.log(bottomCard)
         channel.push('shout', {name: username, body: "?placeCard", card: cards[k], lied: getNumber(cards[k]) !== getNumber(bottomCard), index: k})
         document.getElementById("c" + k).src = "/images/cards/back.jpg";
     }
