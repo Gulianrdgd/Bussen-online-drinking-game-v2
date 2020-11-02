@@ -62,7 +62,9 @@ channel.on('shout', payload => {
             }
             break;
         case "?userChange":
-            users = payload.users;
+            if(!isHost){
+                users = payload.users;
+            }
             break;
         case "?response":
             round1Notification(payload.correct, (payload.name === username), username);
