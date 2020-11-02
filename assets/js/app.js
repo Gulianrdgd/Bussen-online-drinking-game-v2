@@ -25,18 +25,20 @@ let presence = new Presence(channel)
 let username = window.username;
 
 let cards = ["back.jpg","back.jpg","back.jpg","back.jpg"];
-let users;
+let users = [];
 let interval;
 
 function renderOnlineUsers(presence) {
     let count = presence.list().length;
-    users = [];
-
-    for(let i=0; i<count; i++){
-        users.push(presence.list()[i]["metas"][0]["username"]);
+    if(isHost) {
+        users = []
+        for (let i = 0; i < count; i++) {
+            users.push(presence.list()[i]["metas"][0]["username"]);
+        }
+        channel.push('shout', {name: username,  body: "?userChange", users: users});
     }
     if(count === 1 && !isHost){
-        channel.push('shout', {name: username,  body: "?cleanLobby"})
+        channel.push('shout', {name: username,  body: "?cleanLobby"});
     }
     document.getElementById("presence-counter").innerText = `there are currently ${count} players in this room`;
 }
@@ -58,6 +60,9 @@ channel.on('shout', payload => {
             }else{
                 toggleTurn(payload.name, round);
             }
+            break;
+        case "?userChange":
+            users = payload.users;
             break;
         case "?response":
             round1Notification(payload.correct, (payload.name === username), username);
@@ -206,15 +211,11 @@ function recievedCard(card, answer){
 
 function nextUser(){
     let index = users.indexOf(username);
-    console.log(index);
-    console.log(users);
     if(index !== users.length-1){
         index++;
     }else{
         index = 0;
     }
-    console.log(index);
-    console.log(users[index]);
     channel.push('shout', {name: users[index],  body: "?next"})
 }
 
