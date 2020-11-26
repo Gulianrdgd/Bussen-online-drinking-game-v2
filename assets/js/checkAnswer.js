@@ -77,8 +77,6 @@ export function getNumber(card) {
 }
 
 export function checkBus(flippedCard, previousCard, guess, channel){
-    console.log(flippedCard);
-    console.log(previousCard);
     if(flippedCard !== "empty"){
         switch (guess){
             case "up":
