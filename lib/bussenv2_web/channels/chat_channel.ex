@@ -126,8 +126,6 @@ defmodule Bussenv2Web.ChatChannel do
                                                                                       false -> lied
                                                                                     end
                                                                                end)
-              Logger.info(newCurrCards)
-              Logger.info(query.currCards)
               changeset = User.changeset(query, %{username: query.username, roomCode: query.roomCode, origCards: query.origCards, currCards: newCurrCards, liedOn: newLiedOn})
               Repo.update(changeset)
             end
