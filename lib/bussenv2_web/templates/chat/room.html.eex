@@ -15,6 +15,9 @@
 <div class="is-flex is-vcentered" style="min-height: 100vh; flex-direction: column;">
 
   <!-- welcome message and start button -->
+  <figure class="image is-48x48 backArrow">
+    <img src="<%= Routes.static_path(@conn, "/images/back.svg") %>" alt="" onClick="window.location = '/'">
+  </figure>
   <div class="container" style="margin-top: 3rem">
     <h1 class="title has-text-white" style="text-align: center">welcome "<%= @username %>" to room "<%= @roomCode %>"!</h1>
     <h5 class="has-text-white title is-5" id="presence-counter" style="text-align: center;">there are currently 1 players in this room</h5>

@@ -71,8 +71,13 @@ $footer-padding: 1rem 1.5rem 1rem;
   backface-visibility: hidden;
   -moz-border-radius: 10px;
   border-radius: 10px;
-
 }
+.backArrow{
+  display: flex;
+  top: 6.5rem;
+  left: 3rem;
+}
+
 .rows{
   display: flex;
   flex-direction: column;
@@ -166,6 +171,14 @@ $fullhd-enabled: true;
     margin-top: 2rem;
   }
 
+}
+
+@media only screen and (max-width: 768px) {
+  .backArrow{
+    display: block;
+    top: 1.5rem;
+    left: 1.5rem;
+  }
 }
 
 .column{
