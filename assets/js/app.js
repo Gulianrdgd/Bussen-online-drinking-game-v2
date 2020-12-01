@@ -27,6 +27,7 @@ let username = window.username;
 let cards = ["back.jpg","back.jpg","back.jpg","back.jpg"];
 let users = [];
 let interval;
+let cardsCLick = [true, true, true, true];
 
 function renderOnlineUsers(presence) {
     let count = presence.list().length;
@@ -243,7 +244,8 @@ function startRound2(){
 }
 
 function cardOnClick(k) {
-    if(cards[k]!=="back.jpg" && getCurrPos()[1] !== 5) {
+    if(cards[k]!=="back.jpg" && getCurrPos()[1] !== 5 && cardsCLick[k]) {
+        cardsCLick[k] = false;
         let bottomCard = /[^/]*$/.exec(document.getElementById("c" + getCurrPos()[0] + "-" + getCurrPos()[1]).src)[0]
         bottomCard = bottomCard.slice(0,bottomCard.length-4);
         channel.push('shout', {name: username, body: "?placeCard", card: cards[k], lied: getNumber(cards[k]) !== getNumber(bottomCard), index: k})
@@ -254,10 +256,16 @@ function cardOnClick(k) {
 function placeCardInPyramid(user, index) {
     let list = document.getElementById("cl" + getCurrPos()[0] + "-" + getCurrPos()[1]);
     let node = document.createElement("li");
-    node.innerHTML += "<button class='button has-background-black has-text-white' id='" + index + user +"'>" + user + "</button>";
+    let background = 'has-background-black';
+    if(user === username){
+        background = 'has-background-primary';
+    }
+    node.innerHTML += "<button class='button "+ background +" has-text-white' id='" + index + user +"'>" + user + "</button>";
     list.insertBefore(node, list.firstChild);
     document.getElementById(index+user).addEventListener('click', event => {
-        if(user !== username) {
+        let currPos = getCurrPos();
+        event.target.disabled=true;
+        if(user !== username && document.getElementById(index+user).parentNode.parentElement.id === "cl" + currPos[0] + "-"+ currPos[1]) {
             checkPlacedCard(user, index);
         }
     });
@@ -266,6 +274,7 @@ function placeCardInPyramid(user, index) {
 function takeCardback(user, card, index){
     removeLiedCard(index, user);
     document.getElementById("c" + index).src = ("/images/cards/" + card + ".jpg");
+    cardsCLick[index] = true;
 }
 
 function checkPlacedCard(user, index){

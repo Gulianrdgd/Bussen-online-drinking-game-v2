@@ -19,14 +19,8 @@ function nextCardInPyramid(){
 }
 
 export function removeLiedCard(index, user){
-    console.log(index);
-    console.log(user);
     let lis = document.getElementById("cl" + curPos[0] + "-" + curPos[1]).getElementsByTagName("li");
-    console.log(lis);
-    console.log(lis.length);
     for (let i = 0; i < lis.length; i++) {
-        console.log(lis[i].id);
-        console.log(lis[i])
         if (lis[i].outerHTML.includes("id=\""+index+user + "\"")){
             lis[i].parentNode.removeChild(lis[i]);
             return;

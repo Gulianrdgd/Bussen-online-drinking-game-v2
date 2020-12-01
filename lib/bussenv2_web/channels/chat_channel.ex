@@ -109,6 +109,32 @@ defmodule Bussenv2Web.ChatChannel do
             end
 
             {:noreply, socket}
+        "?looked" ->
+          "chat:" <> room = socket.topic
+            if (payload["lied"]) do
+              query = User |> Ecto.Query.where(username: ^payload["name"]) |> Repo.one
+              index = payload["index"]
+              newCurrCards = query.currCards |> Enum.with_index() |> Enum.map(fn ({card, idx}) ->
+                                                                                          case (idx == index) do
+                                                                                            true -> Enum.at(query.origCards, index)
+                                                                                            false -> card
+                                                                                          end
+                                                                                     end)
+              newLiedOn = query.liedOn |> Enum.with_index() |> Enum.map(fn   ({lied, idx}) ->
+                                                                                    case (idx == index) do
+                                                                                      true -> false
+                                                                                      false -> lied
+                                                                                    end
+                                                                               end)
+              Logger.info(newCurrCards)
+              Logger.info(query.currCards)
+              changeset = User.changeset(query, %{username: query.username, roomCode: query.roomCode, origCards: query.origCards, currCards: newCurrCards, liedOn: newLiedOn})
+              Repo.update(changeset)
+            end
+          payload = Map.merge(payload, %{"room" => room})
+          Chats.create_message(payload)
+          broadcast socket, "shout", payload
+          {:noreply, socket}
         "?roomDone" ->
           "chat:" <> room = socket.topic
 

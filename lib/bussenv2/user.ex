@@ -29,7 +29,7 @@ defmodule Bussenv2.User do
 
   def getDriver(roomCode) do
     query = User |> Ecto.Query.where(roomCode: ^roomCode) |> Repo.all |> Enum.map(fn x -> [x.username, Enum.count(x.currCards, fn y -> y != "x" end)] end)
-    minValue = Enum.min_by(query, fn [x, y] -> y end)
-    _chauffeur = Enum.reject(query, fn [x, y] -> y != List.last(minValue) end) |> Enum.random
+    maxValue = Enum.max_by(query, fn [x, y] -> y end) |> List.last
+    _chauffeur = Enum.reject(query, fn [x, y] -> y != maxValue end) |> Enum.random
   end
 end
