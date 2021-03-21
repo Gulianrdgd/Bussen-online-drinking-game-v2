@@ -2,9 +2,7 @@ defmodule Bussenv2Web.ChatController do
   use Bussenv2Web, :controller
   require Logger
   import Ecto.Query, warn: false
-  alias Bussenv2.Repo
-  alias Bussenv2.Chats
-  alias Bussenv2.Room
+  alias Bussenv2.{Repo, Chats, Room}
 
   def show(conn, %{"id" => room}) do
     token = get_session(conn, :token)

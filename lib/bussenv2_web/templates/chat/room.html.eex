@@ -169,6 +169,7 @@
 
   <!-- round 3 the bus -->
   <div class="container" id="round3" style="display: none">
+    <button id="emptyBus" class=" button is-white is-medium has-text-black" style="display: none; text-align: center;">No bus driver?</button>
     <div class="columns is-mobile is-centered is-flex" style="margin-left: 1rem; margin-right: 1rem;">
 
       <div class="column">

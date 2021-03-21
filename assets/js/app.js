@@ -25,7 +25,9 @@ let presence = new Presence(channel)
 let username = window.username;
 
 let cards = ["back.jpg","back.jpg","back.jpg","back.jpg"];
+let liedCards = [];
 let users = [];
+let driver;
 let interval;
 let cardsCLick = [true, true, true, true];
 
@@ -84,8 +86,19 @@ channel.on('shout', payload => {
                 )
             }
             break;
+        case "?emptyBus":
+            if(isHost){
+                channel.push('shout', {name: driver, body: "?wakeUpBusDriver"});
+            }
+            break;
+        case "?wakeUpBusDriver":
+            if(payload.name === username){
+                startRound3Driver(payload.name);
+            }
+            break;
         case "?driver":
             inBetweenRound3(payload.name);
+            driver = payload.name;
             if(isHost){
                 fetchApiCards("createDeck").then(data => {});
                 clearInterval(interval);
@@ -101,7 +114,7 @@ channel.on('shout', payload => {
             turnCardPyramid(payload.card, channel);
             break;
         case "?round3guess":
-            round3Card = selectCard(round3Card, payload.correct, payload.card);
+            round3Card = selectCard(round3Card, payload.correct, payload.card, (driver === username));
             if(round3Card === 1){
                 fetchApiCards("getCard").then(data => {
                     if(data === "empty"){
@@ -154,6 +167,7 @@ channel.on('shout', payload => {
                 }
             }else if(payload.name === username){
                 if(payload.lied){
+                    liedCards.push({row: getCurrPos()[0], col: getCurrPos()[1], c: payload.card});
                     toastr.error("You Lied, drink up!");
                     takeCardback(payload.name, payload.card, payload.index);
                 }else{
@@ -244,7 +258,8 @@ function startRound2(){
 }
 
 function cardOnClick(k) {
-    if(cards[k]!=="back.jpg" && getCurrPos()[1] !== 5 && cardsCLick[k]) {
+    let checkLiedCard = liedCards.filter(e => e.c === cards[k] && e.row === getCurrPos()[0] && e.col === getCurrPos()[1]).length > 0;
+    if(cards[k]!=="back.jpg" && getCurrPos()[1] !== 5 && cardsCLick[k] && !checkLiedCard) {
         cardsCLick[k] = false;
         let bottomCard = /[^/]*$/.exec(document.getElementById("c" + getCurrPos()[0] + "-" + getCurrPos()[1]).src)[0]
         bottomCard = bottomCard.slice(0,bottomCard.length-4);
@@ -332,6 +347,10 @@ async function finalcode(payload){
         document.getElementById("busMessage").innerText = "You did it!";
     }
     await timeout(10000);
+}
+
+document.getElementById("emptyBus").onclick = function (){
+    channel.push('shout', {name: username,  body: "?emptyBus"});
 }
 
 //////////// Round 3 End ////////////
