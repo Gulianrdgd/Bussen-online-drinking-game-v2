@@ -1,7 +1,7 @@
 defmodule Bussenv2.Cards do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Bussenv2.{Repo, Cards, User}
+  alias Bussenv2.{Repo, Cards}
   require Ecto.Query
   require Logger
 

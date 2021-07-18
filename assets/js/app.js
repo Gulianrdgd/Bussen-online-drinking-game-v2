@@ -1,8 +1,8 @@
 import "../css/app.scss"
 
-import {Presence} from "phoenix"
-
-import socket from "./socket"
+import {Presence} from "phoenix";
+import socket from "./socket";
+import {confetti} from "./confetti";
 import {checkAnswer, getNumber, checkBus} from "./checkAnswer"
 import {round1Notification} from "./notification";
 import {turnCardPyramid, getCurrPos, removeLiedCard} from "./round2";
@@ -47,7 +47,7 @@ function renderOnlineUsers(presence) {
 }
 
 presence.onSync(() => renderOnlineUsers(presence))
-channel.join();
+channel.join().receive("error", resp => {  window.location.replace(window.location.protocol + "//" + window.location.host) })
 
 channel.on('shout', payload => {
     switch (payload.body){
@@ -70,7 +70,14 @@ channel.on('shout', payload => {
             }
             break;
         case "?response":
-            round1Notification(payload.correct, (payload.name === username), payload.name);
+            let paal  = payload.correct ? payload.paal : false;
+            round1Notification(payload.correct, (payload.name === username), payload.name, paal);
+            if (payload.correct && paal) {
+                confetti.start();
+                setTimeout(function () {
+                    confetti.stop();
+                }, 1000)
+            }
             break;
         case "?round2":
             startRound2();
@@ -216,7 +223,11 @@ function recievedCard(card, answer){
     document.getElementById("c"+(round)).src = "/images/cards/"+ card +".jpg";
     if(checkAnswer(card, round, answer, cards)){
         document.getElementById("q").innerText = "Correct!";
-        channel.push('shout', {name: username,  body: "?response", correct: true})
+        if(round !== 0 && answer === "c"){
+            channel.push('shout', {name: username, body: "?response", correct: true, paal: true})
+        }else {
+            channel.push('shout', {name: username, body: "?response", correct: true, paal: false})
+        }
     } else{
         document.getElementById("q").innerText = "Wrong take a sip!";
         channel.push('shout', {name: username,  body: "?response", correct: false})

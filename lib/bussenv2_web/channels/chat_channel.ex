@@ -21,8 +21,15 @@ defmodule Bussenv2Web.ChatChannel do
     if !res do
       changeset = Room.changeset(%Room{}, %{roomCode: room, round: 0 , isPlaying: false, host: uid})
       Repo.insert(changeset)
+      {:ok, socket}
+    else
+      query = Room |> Ecto.Query.where(roomCode: ^room) |> Repo.one
+      if query.isPlaying do
+        {:error, %{reason: "Room is playing"}}
+        else
+        {:ok, socket}
+      end
     end
-    {:ok, socket}
   end
 
   def leave(room_id, user_id) do
@@ -146,6 +153,15 @@ defmodule Bussenv2Web.ChatChannel do
             _query = User |> Ecto.Query.where(roomCode: ^room) |> Repo.delete_all
           end
 
+          {:noreply, socket}
+        "?start" ->
+          "chat:" <> room = socket.topic
+          payload = Map.merge(payload, %{"room" => room})
+          query = Room |> Ecto.Query.where(roomCode: ^payload["room"]) |> Repo.one
+          changeset = Room.changeset(query, %{isPlaying: true})
+          Repo.update(changeset)
+          Chats.create_message(payload)
+          broadcast socket, "shout", payload
           {:noreply, socket}
         _ ->
           "chat:" <> room = socket.topic

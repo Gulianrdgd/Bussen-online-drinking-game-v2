@@ -1,5 +1,4 @@
 let timeOut;
-let initial;
 
 export function inBetweenRound3(username){
     document.getElementById("round2").style.display = "none";
@@ -15,19 +14,18 @@ export function startRound3(card) {
     timeOut = setTimeout(function () {
         document.getElementById("emptyBus").style.display = "block";
     }, 5000);
-    initial = true;
 }
 
 function busDriverIsBack(){
-    if(initial){
-        initial = false;
         clearTimeout(timeOut);
         document.getElementById("emptyBus").style.display = "none";
-    }
 }
 
 export function selectCard(id, success, card, driver) {
     busDriverIsBack();
+    timeOut = setTimeout(function () {
+        document.getElementById("emptyBus").style.display = "block";
+    }, 5000);
     document.getElementById("busu" + id).style.visibility = "hidden";
     document.getElementById("busb" + id).style.visibility = "hidden";
     document.getElementById("busd" + id).style.visibility = "hidden";

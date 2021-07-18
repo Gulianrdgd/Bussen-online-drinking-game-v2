@@ -6,8 +6,8 @@
     window.roomCode = "<%= @roomCode%>";
     window.isHost = <%= @isHost %>;
 }</script>
+<script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/confetti.js") %>"></script>
 <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-<script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -169,7 +169,9 @@
 
   <!-- round 3 the bus -->
   <div class="container" id="round3" style="display: none">
-    <button id="emptyBus" class=" button is-white is-medium has-text-black" style="display: none; text-align: center;">No bus driver?</button>
+    <div class="is-flex" style="width: 100%; justify-content: center;">
+      <button id="emptyBus" class=" button is-white is-medium has-text-black" style="display: none; text-align: center; ">No bus driver?</button>
+    </div>
     <div class="columns is-mobile is-centered is-flex" style="margin-left: 1rem; margin-right: 1rem;">
 
       <div class="column">

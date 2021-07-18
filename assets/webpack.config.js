@@ -12,7 +12,7 @@ module.exports = (env, options) => {
   return {
     optimization: {
       minimizer: [
-        new TerserPlugin({ cache: true, parallel: true, sourceMap: devMode }),
+        new TerserPlugin({ parallel: true}),
         new OptimizeCSSAssetsPlugin({})
       ]
     },
@@ -24,13 +24,20 @@ module.exports = (env, options) => {
       'round2': glob.sync('./vendor/**/*.js').concat(['./js/round2.js']),
       'round3': glob.sync('./vendor/**/*.js').concat(['./js/round3.js']),
       'socket': glob.sync('./vendor/**/*.js').concat(['./js/socket.js']),
+      'confetti': glob.sync('./vendor/**/*.js').concat(['./js/confetti.js']),
+
     },
     output: {
       filename: '[name].js',
       path: path.resolve(__dirname, '../priv/static/js'),
       publicPath: '/js/'
     },
-
+    cache: {
+      type: 'filesystem',
+      buildDependencies: {
+        config: [ __filename ] // you may omit this when your CLI automatically adds it
+      }
+    },
     devtool: devMode ? 'eval-cheap-module-source-map' : undefined,
     module: {
       rules: [
@@ -62,8 +69,11 @@ module.exports = (env, options) => {
     },
     plugins: [
       new MiniCssExtractPlugin({ filename: '../css/app.css' }),
-      new CopyWebpackPlugin([{ from: 'static/', to: '../' }]),
+      new CopyWebpackPlugin({
+        patterns: [
+          { from: 'static/', to: '../' }
+        ]
+      }),
     ]
-    .concat(devMode ? [new HardSourceWebpackPlugin()] : [])
   }
 };
